@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\App;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Spatie\Backup\BackupServiceProvider;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 
@@ -27,17 +28,17 @@ class LaravelUsefulPackages extends ServiceProvider
 
     public function boot()
     {
-        // Automatically publish config files if they don't exist
-        if (!file_exists(config_path('backup.php'))) {
-            Artisan::call('vendor:publish', [
-                '--provider' => "Spatie\\Backup\\BackupServiceProvider"
-            ]);
+        if (!File::exists(config_path('backup.php'))) {
+            $this->publishConfig(BackupServiceProvider::class);
         }
 
-        if (!file_exists(config_path('medialibrary.php'))) {
-            Artisan::call('vendor:publish', [
-                '--provider' => "Spatie\\MediaLibrary\\MediaLibraryServiceProvider"
-            ]);
+        if (!File::exists(config_path('medialibrary.php'))) {
+            $this->publishConfig(MediaLibraryServiceProvider::class);
         }
+    }
+
+    protected function publishConfig(string $provider)
+    {
+        exec("php artisan vendor:publish --provider=\"$provider\"");
     }
 }
