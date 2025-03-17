@@ -48,7 +48,11 @@
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
+        "format": "vendor/bin/pint",
+        "post-update-cmd": [
+            "@php artisan vendor:publish --provider=\"Spatie\\Backup\\BackupServiceProvider\"",
+            "@php artisan vendor:publish --provider=\"Spatie\\MediaLibrary\\MediaLibraryServiceProvider\""
+        ]
     },
     "config": {
         "sort-packages": true,
