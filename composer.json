@@ -17,6 +17,7 @@
         "php": "^8.3",
         "illuminate/contracts": "^10.0||^11.0||^12.0",
         "spatie/laravel-backup": "^9.2",
+        "spatie/laravel-data": "*",
         "spatie/laravel-medialibrary": "^11.12",
         "spatie/laravel-package-tools": "^1.16"
     },
@@ -50,8 +51,10 @@
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint",
         "post-update-cmd": [
-            "@php artisan vendor:publish --provider=\"Spatie\\Backup\\BackupServiceProvider\"",
-            "@php artisan vendor:publish --provider=\"Spatie\\MediaLibrary\\MediaLibraryServiceProvider\""
+            "@php artisan vendor:publish --provider=\"Spatie\\Backup\\BackupServiceProvider\" --force",
+            "@php artisan vendor:publish --provider=\"Spatie\\MediaLibrary\\MediaLibraryServiceProvider\" --force",
+            "@php artisan vendor:publish --provider=\"Spatie\\LaravelData\\LaravelDataServiceProvider\" --tag=\"data-config\""
+
         ]
     },
     "config": {

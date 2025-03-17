@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Spatie\Backup\BackupServiceProvider;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
+use Spatie\LaravelData\LaravelDataServiceProvider;
 
 class LaravelUsefulPackages extends ServiceProvider
 {
@@ -22,6 +23,9 @@ class LaravelUsefulPackages extends ServiceProvider
             $this->app->register(BackupServiceProvider::class);
         }
         if (!App::resolved(MediaLibraryServiceProvider::class)) {
+            $this->app->register(MediaLibraryServiceProvider::class);
+        }
+        if (!App::resolved(LaravelDataServiceProvider::class)) {
             $this->app->register(MediaLibraryServiceProvider::class);
         }
     }
